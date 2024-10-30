@@ -7,7 +7,7 @@ use std::env::current_dir;
 use scandir::Count;
 
 #[derive(Parser)]
-#[command(version, about, long_about)]
+#[command(version, about, long_about, arg_required_else_help=true)]
 struct Cli {
 
     /// Directory to count files in
@@ -32,8 +32,6 @@ enum Commands {
 
 fn count_files_directory(path: &PathBuf, match_pattern: Option<Vec<String>>) -> () {
     let instance = Count::new(path).unwrap().file_include(match_pattern).max_depth(1).collect();
-
-    //let _results = instance.results();
     println!("{:#?}", instance.unwrap());
 }
 
